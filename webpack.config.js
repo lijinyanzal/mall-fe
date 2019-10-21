@@ -1,9 +1,9 @@
-var webpack             = require('webpack')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-var HtmlWebpackPlugin   = require('html-webpack-plugin')
+var webpack             = require('webpack');
+var MiniCssExtractPlugin   = require('mini-css-extract-plugin');
+var HtmlWebpackPlugin   = require('html-webpack-plugin');
 
 // 环境变量配置，dev / online
-var WEBPACK_ENV         = process.env.WEBPACK_ENV || 'dev'
+var WEBPACK_ENV         = process.env.WEBPACK_ENV || 'dev';
 
 // 获取html-webpack-plugin参数的方法 
 var getHtmlConfig = function(name, title){
@@ -67,11 +67,11 @@ var config = {
             */
             // css文件的处理
             {
-              test: /\.css$/,
-              use: [
-                MiniCssExtractPlugin.loader,
-                'css-loader',
-              ]
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
             },
             /* 
             * 【改动】：模板文件的加载方式变化
@@ -136,6 +136,7 @@ var config = {
     /* 
     * 【新增】：webpack4里面移除了commonChunksPulgin插件，放在了config.optimization里面
     */
+   
     optimization:{
         runtimeChunk: false,
         splitChunks: {
@@ -159,11 +160,11 @@ var config = {
         // }),
         // 把css单独打包到文件里
         new MiniCssExtractPlugin({
-          filename: "[id].[name].[chunkhash:8].css",
-          chunkFilename: "[id].[name].[chunkhash:8].css"
+          filename: "[name]..css",
+          chunkFilename: "[name].css"
         }),
         // html模板的处理
-        // new HtmlWebpackPlugin(getHtmlConfig('index', '首页')),
+        new HtmlWebpackPlugin(getHtmlConfig('index', '首页')),
         // new HtmlWebpackPlugin(getHtmlConfig('list', '商品列表')),
         // new HtmlWebpackPlugin(getHtmlConfig('detail', '商品详情')),
         // new HtmlWebpackPlugin(getHtmlConfig('cart', '购物车')),
@@ -194,7 +195,6 @@ var config = {
         }
     }
 
-}
+};
 
-module.exports = config
-
+module.exports = config;
