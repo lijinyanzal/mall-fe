@@ -20,7 +20,7 @@ var nav = {
     })
     //注册
     $('js-register').click(function() {
-      window.location.href = './register.html'
+      window.location.href = './user-register.html'
     })
     //登出
     $('js-logout').click(function() {

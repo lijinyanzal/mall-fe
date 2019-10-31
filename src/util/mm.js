@@ -57,7 +57,7 @@ var _mm = {
     alert(msg || '哪里出错了~~' )
   },
   
-  validata: function(value, type) {
+  validate: function(value, type) {
     var value = value.trim()
     if (type === 'require') {
       return !!value
@@ -71,7 +71,7 @@ var _mm = {
   },
   
   doLogin: function() {
-    window.location.href = './login.html?redirect=' + encodeURIComponent(window.location.href)
+    window.location.href = './user-login.html?redirect=' + encodeURIComponent(window.location.href)
   },
   goHome: function() {
     window.location.href = './index.html'
